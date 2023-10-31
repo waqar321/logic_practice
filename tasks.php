@@ -1,5 +1,6 @@
 <?php 
 
+
 class Calculator
 {
     public function Find_Duplicate_Values_and_print_their_quantity()
@@ -543,11 +544,11 @@ class Calculator
     public function matchingStrings()
     {        
 
-            // $string_array = explode(', ', $strings);
-    // $stringLength = array_shift($string_array); 
-    
-    // $query_array = explode(', ', $queries);
-    // $queryStringLength = array_shift($query_array); 
+        // $string_array = explode(', ', $strings);
+        // $stringLength = array_shift($string_array); 
+        
+        // $query_array = explode(', ', $queries);
+        // $queryStringLength = array_shift($query_array); 
     
         // $strings = "4, aba, baba, aba, xzxb"; 
         // $strings = "3, def, de, fgh"; 
@@ -590,6 +591,82 @@ class Calculator
         foreach ($query_array as $query) {
             echo $foundQuantity[$query] . "<br>";
         }
+
+        ===================== FOR LIVE ==================
+
+        <?php
+
+/*
+ * Complete the 'matchingStrings' function below.
+ *
+ * The function is expected to return an INTEGER_ARRAY.
+ * The function accepts following parameters:
+ *  1. STRING_ARRAY strings
+ *  2. STRING_ARRAY queries
+ */
+
+function matchingStrings($strings, $queries) {
+  
+    // array_shift($strings); 
+                // array_shift($queries); 
+                $foundQuantity = [];
+
+                foreach($queries as $query_key => $query)  
+                {
+                    foreach($strings as $string_key => $string) 
+                    {
+                        if($query == $string) 
+                        {
+                            if(array_key_exists($query, $foundQuantity))  
+                            {
+                                $foundQuantity[$query] = $foundQuantity[$query] + 1; 
+                            }
+                            else
+                            {
+                                $foundQuantity[$query] = 1;   
+                            }
+                        }
+                    }
+                    
+                    if(!array_key_exists($query, $foundQuantity)) 
+                    {
+                        $foundQuantity[$query] = 0;
+                    }
+                }  
+                return $foundQuantity;     
+            }
+
+        // -----------------------------------------------------------------
+            $strings = array();
+            $queries = array();
+                
+                $fptr = fopen(getenv("OUTPUT_PATH"), "w");
+                $strings_count = intval(trim(fgets(STDIN)));
+
+
+
+                for ($i = 0; $i < $strings_count; $i++) {
+                    $strings_item = rtrim(fgets(STDIN), "\r\n");
+                    $strings[] = $strings_item;
+                }
+
+                $queries_count = intval(trim(fgets(STDIN)));
+
+
+
+                for ($i = 0; $i < $queries_count; $i++) {
+                    $queries_item = rtrim(fgets(STDIN), "\r\n");
+                    $queries[] = $queries_item;
+                }
+            
+
+            $res = matchingStrings($strings, $queries);
+        // -----------------------------------------------------------------
+        fwrite($fptr, implode("\n", $res) . "\n");
+
+        fclose($fptr);
+            
+
     }
 }
 
@@ -604,6 +681,15 @@ $calculator = new Calculator();
 // $calculator->divisibleSumPairs();
 $calculator->matchingStrings();
 
-echo "<br> ============================ Updated ";
+echo "<br> ============================ task run ========================= ";
+
+// $res = matchingStrings($strings, $queries);
+
+// fwrite($fptr, implode("\n", $res) . "\n");   // jo output ap dena chahte hen wo isme add karte
+
+// fclose($fptr);
+
+
+
 ?>
 
