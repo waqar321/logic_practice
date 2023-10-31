@@ -592,27 +592,21 @@ class Calculator
             echo $foundQuantity[$query] . "<br>";
         }
 
-        ===================== FOR LIVE ==================
+        // ===================== FOR LIVE ==================
 
-        <?php
 
-/*
- * Complete the 'matchingStrings' function below.
- *
- * The function is expected to return an INTEGER_ARRAY.
- * The function accepts following parameters:
- *  1. STRING_ARRAY strings
- *  2. STRING_ARRAY queries
- */
 
-function matchingStrings($strings, $queries) {
-  
-    // array_shift($strings); 
-                // array_shift($queries); 
-                $foundQuantity = [];
-
-                foreach($queries as $query_key => $query)  
-                {
+        
+            function matchingStrings($strings, $queries) {
+          
+            // array_shift($strings); 
+            // array_shift($queries); 
+            $foundQuantity = [];
+        
+            foreach($queries as $query_key => $query)  
+            {
+                if(!array_key_exists($query, $foundQuantity))  
+                {     
                     foreach($strings as $string_key => $string) 
                     {
                         if($query == $string) 
@@ -627,15 +621,19 @@ function matchingStrings($strings, $queries) {
                             }
                         }
                     }
-                    
-                    if(!array_key_exists($query, $foundQuantity)) 
-                    {
-                        $foundQuantity[$query] = 0;
-                    }
-                }  
-                return $foundQuantity;     
-            }
-
+                }
+                else
+                {
+                   $foundQuantity[$query] = $foundQuantity[$query];    
+                }
+                // if(!array_key_exists($query, $foundQuantity)) 
+                // {
+                //     $foundQuantity[$query] = 0;
+                // }
+            }  
+            return $foundQuantity;     
+        }
+        
         // -----------------------------------------------------------------
             $strings = array();
             $queries = array();
