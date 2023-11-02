@@ -552,120 +552,271 @@ class Calculator
     
         // $strings = "4, aba, baba, aba, xzxb"; 
         // $strings = "3, def, de, fgh"; 
-        $strings = "13, abcde, sdaklfj, asdjf, na, basdn, sdaklfj, asdjf, na, asdjf, na, basdn, sdaklfj, asdjf";
-        $string_array = explode(', ', $strings);
-        $stringLength = array_shift($string_array); 
-  
 
-        // $query = "3, aba, xzxb, ab"; 
-        // $query = "3, de, lmn, fgh"; 
-        $query = "3, abcde, sdaklfj, asdjf, na, basdn";
-        $query_array = explode(', ', $query);
-        $queryStringLength = array_shift($query_array); 
+        $dummystrings = "100,lekgdisnsbfdzpqlkg,eagemhdygyv,jwvwwnrhuai,urcadmrwlqe,mpgqsvxrijpombyv,mpgqsvxrijpombyv,urcadmrwlqe,mpgqsvxrijpombyv,eagemhdygyv,eagemhdygyv,jwvwwnrhuai,urcadmrwlqe,jwvwwnrhuai,kvugevicpsdf,kvugevicpsdf,mpgqsvxrijpombyv,urcadmrwlqe,mpgqsvxrijpombyv,exdafbnobg,qhootohpnfvbl,suffrbmqgnln,exdafbnobg,exdafbnobg,eagemhdygyv,mpgqsvxrijpombyv,urcadmrwlqe,jwvwwnrhuai,lekgdisnsbfdzpqlkg,mpgqsvxrijpombyv,lekgdisnsbfdzpqlkg,jwvwwnrhuai,exdafbnobg,mpgqsvxrijpombyv,kvugevicpsdf,qhootohpnfvbl,urcadmrwlqe,kvugevicpsdf,mpgqsvxrijpombyv,lekgdisnsbfdzpqlkg,mpgqsvxrijpombyv,kvugevicpsdf,qhootohpnfvbl,lxyqetmgdbmh,urcadmrwlqe,urcadmrwlqe,kvugevicpsdf,lxyqetmgdbmh,urcadmrwlqe,lxyqetmgdbmh,jwvwwnrhuai,qhootohpnfvbl,qhootohpnfvbl,jwvwwnrhuai,lekgdisnsbfdzpqlkg,kvugevicpsdf,mpgqsvxrijpombyv,exdafbnobg,kvugevicpsdf,lekgdisnsbfdzpqlkg,qhootohpnfvbl,exdafbnobg,qhootohpnfvbl,exdafbnobg,mpgqsvxrijpombyv,suffrbmqgnln,mpgqsvxrijpombyv,qhootohpnfvbl,jwvwwnrhuai,mpgqsvxrijpombyv,qhootohpnfvbl,lekgdisnsbfdzpqlkg,eagemhdygyv,jwvwwnrhuai,kvugevicpsdf,eagemhdygyv,eagemhdygyv,lxyqetmgdbmh,qhootohpnfvbl,lxyqetmgdbmh,exdafbnobg,qhootohpnfvbl,qhootohpnfvbl,exdafbnobg,suffrbmqgnln,mpgqsvxrijpombyv,urcadmrwlqe,eagemhdygyv,lxyqetmgdbmh,urcadmrwlqe,suffrbmqgnln,qhootohpnfvbl,kvugevicpsdf,lekgdisnsbfdzpqlkg,lxyqetmgdbmh,mpgqsvxrijpombyv,jwvwwnrhuai,lxyqetmgdbmh,lxyqetmgdbmh,lekgdisnsbfdzpqlkg,qhootohpnfvbl";
 
+        $strings = explode(',', $dummystrings);
+        array_walk($strings, 'trim'); 
+        array_shift($strings);  
+
+
+        $Dummyquery = "3, exdafbnobg, eagemhdygyv, mpgqsvxrijpombyv, kvugevicpsdf, lekgdisnsbfdzpqlkg, kvugevicpsdf, exdafbnobg, qhootohpnfvbl, eagemhdygyv, kvugevicpsdf, suffrbmqgnln, jwvwwnrhuai, lekgdisnsbfdzpqlkg, lekgdisnsbfdzpqlkg, mpgqsvxrijpombyv, jwvwwnrhuai, kvugevicpsdf, lekgdisnsbfdzpqlkg, exdafbnobg, suffrbmqgnln";
+        $queries = explode(', ', $Dummyquery);
+        array_walk($queries, 'trim'); 
+        array_shift($queries); 
+        // echo "<pre>";
+        // print_r($strings);
+        // echo "<pre>"; die();
+        
         $foundQuantity = [];
 
-        foreach($query_array as $query_key => $query)  //"aba, xzxb, ab"; 
+        foreach($queries as $query_key => $query)  
         {
-            foreach($string_array as $string_key => $string)  //aba, baba, aba, xzxb"; 
-            {
-                if($query == $string)  // xzxb == aba
+            if(!array_key_exists($query, $foundQuantity))  
+            {     
+                foreach($strings as $string_key => $string) 
                 {
-                    if(array_key_exists($query, $foundQuantity))  //aba
+                    if($query == $string) 
                     {
-                        $foundQuantity[$query] = $foundQuantity[$query] + 1;  //
-                    }
-                    else
-                    {
-                        $foundQuantity[$query] = 1;   
-                    }
-                }
-            }
-            
-            if(!array_key_exists($query, $foundQuantity)) 
-            {
-                $foundQuantity[$query] = 0;
-            }
-        }
-
-        foreach ($query_array as $query) {
-            echo $foundQuantity[$query] . "<br>";
-        }
-
-        // ===================== FOR LIVE ==================
-
-
-
-        
-            function matchingStrings($strings, $queries) {
-          
-            // array_shift($strings); 
-            // array_shift($queries); 
-            $foundQuantity = [];
-        
-            foreach($queries as $query_key => $query)  
-            {
-                if(!array_key_exists($query, $foundQuantity))  
-                {     
-                    foreach($strings as $string_key => $string) 
-                    {
-                        if($query == $string) 
+                        if(array_key_exists($query, $foundQuantity))  
                         {
-                            if(array_key_exists($query, $foundQuantity))  
-                            {
-                                $foundQuantity[$query] = $foundQuantity[$query] + 1; 
-                            }
-                            else
-                            {
-                                $foundQuantity[$query] = 1;   
-                            }
+                            $foundQuantity[$query] = $foundQuantity[$query] + 1; 
+                        }
+                        else
+                        {
+                            $foundQuantity[$query] = 1;   
                         }
                     }
                 }
-                else
+                if(!array_key_exists($query, $foundQuantity)) 
                 {
-                   $foundQuantity[$query] = $foundQuantity[$query];    
+                    $foundQuantity[$query] = 0;
                 }
-                // if(!array_key_exists($query, $foundQuantity)) 
-                // {
-                //     $foundQuantity[$query] = 0;
-                // }
-            }  
-            return $foundQuantity;     
-        }
-        
-        // -----------------------------------------------------------------
-            $strings = array();
-            $queries = array();
-                
-                $fptr = fopen(getenv("OUTPUT_PATH"), "w");
-                $strings_count = intval(trim(fgets(STDIN)));
+            }
+            else
+            {
+                $foundQuantity[$query.$query_key] = $foundQuantity[$query];    
+            }
+        } 
+        // return $foundQuantity;     
+            // echo "<pre>";
+            // print_r($foundQuantity);
+            // echo "<pre>";
+
+        // ===================== FOR LIVE ======================================================
+                         
+
+                    /*
+                    * Complete the 'matchingStrings' function below.
+                    *
+                    * The function is expected to return an INTEGER_ARRAY.
+                    * The function accepts following parameters:
+                    *  1. STRING_ARRAY strings
+                    *  2. STRING_ARRAY queries
+                    */
+
+                    // function matchingStrings($strings, $queries) {
+                    
+                    //     // array_shift($strings); 
+                    //     // array_shift($queries); 
+                    //     $foundQuantity = [];
+
+                    //     foreach($queries as $query_key => $query)  
+                    //         {
+                    //             if(!array_key_exists($query, $foundQuantity))  
+                    //             {     
+                    //                 foreach($strings as $string_key => $string) 
+                    //                 {
+                    //                     if($query == $string) 
+                    //                     {
+                    //                         if(array_key_exists($query, $foundQuantity))  
+                    //                         {
+                    //                             $foundQuantity[$query] = $foundQuantity[$query] + 1; 
+                    //                         }
+                    //                         else
+                    //                         {
+                    //                             $foundQuantity[$query] = 1;   
+                    //                         }
+                    //                     }
+                    //                 }
+                    //                 if(!array_key_exists($query, $foundQuantity)) 
+                    //                 {
+                    //                     $foundQuantity[$query] = 0;
+                    //                 }
+                    //             }
+                    //             else
+                    //             {
+                    //                 $foundQuantity[$query.$query_key] = $foundQuantity[$query];    
+                    //             }
+                    //         } 
+                    //         return $foundQuantity;   
+                    // }
+
+                    // // =======================================================
+                    //     $strings = array();
+                    //     $queries = array();
+                            
+                    //         $fptr = fopen(getenv("OUTPUT_PATH"), "w");
+                    //         $strings_count = intval(trim(fgets(STDIN)));
 
 
 
-                for ($i = 0; $i < $strings_count; $i++) {
-                    $strings_item = rtrim(fgets(STDIN), "\r\n");
-                    $strings[] = $strings_item;
-                }
+                    //         for ($i = 0; $i < $strings_count; $i++) {
+                    //             $strings_item = rtrim(fgets(STDIN), "\r\n");
+                    //             $strings[] = $strings_item;
+                    //         }
 
-                $queries_count = intval(trim(fgets(STDIN)));
+                    //         $queries_count = intval(trim(fgets(STDIN)));
 
 
 
-                for ($i = 0; $i < $queries_count; $i++) {
-                    $queries_item = rtrim(fgets(STDIN), "\r\n");
-                    $queries[] = $queries_item;
-                }
-            
+                    //         for ($i = 0; $i < $queries_count; $i++) {
+                    //             $queries_item = rtrim(fgets(STDIN), "\r\n");
+                    //             $queries[] = $queries_item;
+                    //         }
+                        
+                    // // =======================================================
 
-            $res = matchingStrings($strings, $queries);
-        // -----------------------------------------------------------------
-        fwrite($fptr, implode("\n", $res) . "\n");
+                    // $res = matchingStrings($strings, $queries);
 
-        fclose($fptr);
+                    // fwrite($fptr, implode("\n", $res) . "\n");
+
+                    // fclose($fptr);
+                        
+
+        // ===================== FOR LIVE =======================================================
             
 
     }
+    public function fizzBuzz($n)
+    {   
+        for($i=1; $i<=$n; $i++)
+        { 
+
+            if(!is_float($i / 5) && !is_float($i / 3))
+            {
+                echo "FizzBuzz"."<br>"; // for live "\n"
+            }
+            else if(!is_float($i / 5))
+            {
+                echo "Buzz"."<br>";  // for live "\n"
+            }
+            else if(!is_float($i / 3))
+            {
+                echo "Fizz"."<br>";  // for live "\n"
+            }
+            else
+            {
+                echo $i."<br>";  // for live "\n"
+            }
+        }
+    }
+    public function calculateMedian($array) 
+    {
+        if (empty($array)) {
+            return null;
+        } else {
+            sort($array);
+            $length = count($array);
+            $middle_index = floor(($length - 1) / 2);
+            if ($length % 2) {
+                return $array[$middle_index];
+            } else {
+                $low = $array[$middle_index];
+                $high = $array[$middle_index + 1];
+                return ($low + $high) / 2;
+            }
+        }
+    }
+    function lonelyinteger($aarray)
+    {
+        $length = count($aarray);
+        $secondArray = array();
+        $thirdArray = array();
+
+        for($i=0; $i<$length; $i++)
+        {      
+            $value = $aarray[$i];
+
+            if(in_array($value, $secondArray))  
+            {
+            
+                //here i wanna remove value from array $secondArray
+                $key = array_search($value, $secondArray);
+                if ($key !== false) {
+                    array_splice($secondArray, $key, 1);
+                }    
+
+                $thirdArray[] = $value;
+     
+            }
+            else
+            {
+                if(!in_array($value, $thirdArray))  
+                {
+                    $secondArray[] = $value;
+                }
+            }
+        }
+        echo $secondArray[0];
+
+
+        // ===================== FOR LIVE =======================================================
+        
+                // function lonelyinteger($a) {
+                    
+                //     $length = count($a);
+                //             $secondArray = array();
+                //             $thirdArray = array();
+                    
+                //             for($i=0; $i<$length; $i++)
+                //             {      
+                //                 $value = $a[$i];
+                    
+                //                 if(in_array($value, $secondArray))  
+                //                 {
+                                
+                //                     //here i wanna remove value from array $secondArray
+                //                     $key = array_search($value, $secondArray);
+                //                     if ($key !== false) {
+                //                         array_splice($secondArray, $key, 1);
+                //                     }
+                    
+                        
+                    
+                //                     $thirdArray[] = $value;
+                        
+                //                 }
+                //                 else
+                //                 {
+                //                     if(!in_array($value, $thirdArray))  
+                //                     {
+                //                         $secondArray[] = $value;
+                //                     }
+                //                 }
+                //             }
+                //             return $secondArray[0];;
+                //     }
+                    
+                //     $fptr = fopen(getenv("OUTPUT_PATH"), "w");
+                    
+                //     $n = intval(trim(fgets(STDIN)));
+                    
+                //     $a_temp = rtrim(fgets(STDIN));
+                    
+                //     $a = array_map('intval', preg_split('/ /', $a_temp, -1, PREG_SPLIT_NO_EMPTY));
+                    
+                //     $result = lonelyinteger($a);
+                    
+                //     fwrite($fptr, $result . "\n");
+                    
+                //     fclose($fptr);
+        
+        // ===================== FOR LIVE =======================================================
+    }
+
+
+
 }
 
 
@@ -677,10 +828,14 @@ $calculator = new Calculator();
 // $result = $calculator->breakingRecords($arr = [3, 4, 21, 36, 10, 28, 35, 5, 24, 42]); //3 4 21 36 10 28 35 5 24 42
 // $calculator->CamelCase();
 // $calculator->divisibleSumPairs();
-$calculator->matchingStrings();
+// $calculator->matchingStrings();
+// $calculator->fizzBuzz(15);
+// $calculator->calculateMedian($arr = [3, 4, 21, 36, 10, 28, 35, 5, 24, 42]);
+// $calculator->lonelyinteger($arr = [1, 1, 2]);
 
 echo "<br> ============================ task run ========================= ";
 
+// "\n"  break line
 // $res = matchingStrings($strings, $queries);
 
 // fwrite($fptr, implode("\n", $res) . "\n");   // jo output ap dena chahte hen wo isme add karte
